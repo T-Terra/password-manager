@@ -1,4 +1,4 @@
-from lib.interface import menu
+from library.interface import menu
 
 # Main program
 password = str(input('Cadastre a senha mestra: '))
