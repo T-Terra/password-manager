@@ -1,2 +1,5 @@
+from lib.interface import menu
+
 # Main program
-password_master(input('Digite a senha mestra: '))
+password = str(input('Cadastre a senha mestra: '))
+menu()
