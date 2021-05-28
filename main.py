@@ -1,3 +1,3 @@
 from functions import cripto
 
-cripto()
+cripto(str(input('Digite sua senha: ')))
