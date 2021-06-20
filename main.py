@@ -1,5 +1,5 @@
-from library.interface import menu, response
+from library.interface import menu, pass_master
 
 # Main program
-password = str(input('Cadastre a senha mestra: '))
+pass_master()
 menu()
