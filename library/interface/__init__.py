@@ -1,10 +1,21 @@
+import pymysql
+
+def connect_server():
+    con = pymysql.connect(host='localhost', user='root', password='', database='pass')
+    cursor = con.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS words (
+        username TEXT NOT NULL,
+        password TEXT NOT NULL
+    );
+    ''')
+
 def pass_master():
-    global password
-    password = str(input('Cadastre a senha mestra: '))
+    global pass_word
+    pass_word = str(input('Cadastre a senha mestra: '))
 
 def list_passwords():
     print(20 * '=')
-    print(password)
+    print(pass_word)
     print(20 * '=')
 
 def response():
