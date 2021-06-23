@@ -2,15 +2,19 @@ import pymysql
 
 def connect_server():
     try:
-        con = pymysql.connect(host='localhost', user='root', password='', database='pass')
+        con = pymysql.Connect(host='localhost', user='root', password='', database='pass')
         cursor = con.cursor()
-    except:
-        print('Erro - 505 server not found!')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS words (
+        """cursor.execute('''CREATE TABLE IF NOT EXISTS words (
         username TEXT NOT NULL,
         password TEXT NOT NULL
-    );
-    ''')
+        );
+        ''')"""
+    except:
+        cursor = con.cursor()
+        print('Erro - 505 server not found!')
+        cursor.execute('''create database pass
+                        default character set utf8
+                        default collate utf8_general_ci;''')
 
 def pass_master():
     global pass_word
@@ -21,7 +25,7 @@ def list_passwords():
     print(pass_word)
     print(20 * '=')
 
-def response():
+def response_menu():
     global resp
     resp = int(input('Sua opção: '))
 
@@ -31,7 +35,7 @@ def menu():
         main_menu = ['Recadastrar senha mestra', 'Listar senhas', 'Sair do programa']
         for k, v in enumerate(main_menu):
             print(f'{k+1} - {v}')
-        response()
+        response_menu()
         if resp == 1:
             pass_master()
         elif resp == 2:
