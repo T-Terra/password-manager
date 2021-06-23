@@ -1,8 +1,11 @@
 import pymysql
 
 def connect_server():
-    con = pymysql.connect(host='localhost', user='root', password='', database='pass')
-    cursor = con.cursor()
+    try:
+        con = pymysql.connect(host='localhost', user='root', password='', database='pass')
+        cursor = con.cursor()
+    except:
+        print('Erro - 505 server not found!')
     cursor.execute('''CREATE TABLE IF NOT EXISTS words (
         username TEXT NOT NULL,
         password TEXT NOT NULL
