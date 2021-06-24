@@ -1,24 +1,33 @@
-import pymysql
+import pymysql.cursors
+
+pass_master_key = 'suco'
 
 def connect_server():
+    global cursor
     try:
         con = pymysql.Connect(host='localhost', user='root', password='', database='pass')
         cursor = con.cursor()
-        """cursor.execute('''CREATE TABLE IF NOT EXISTS words (
+        cursor.execute('''CREATE TABLE IF NOT EXISTS words (
         username TEXT NOT NULL,
-        password TEXT NOT NULL
+        pass_word TEXT NOT NULL
         );
-        ''')"""
+        ''')
     except:
-        cursor = con.cursor()
-        print('Erro - 505 server not found!')
-        cursor.execute('''create database pass
-                        default character set utf8
-                        default collate utf8_general_ci;''')
+        print('Erro - 404 server not found!')
+
+def insert_into():
+    user = str(input('nome de usuário: '))
+    pass_key = str(input('Cadastre sua senha mestra: '))
+    sql = "INSERT INTO `words` (`username`, `pass_word`) VALUES (%s, %s)"
+    cursor.execute(sql, ('gabriel', 'sodan'))
 
 def pass_master():
     global pass_word
-    pass_word = str(input('Cadastre a senha mestra: '))
+    pass_word = str(input('Senha mestra: '))
+    if pass_word == pass_master_key:
+        menu()
+    else:
+        print('Erro! Senha inválida.')
 
 def list_passwords():
     print(20 * '=')
@@ -32,12 +41,12 @@ def response_menu():
 def menu():
     from time import sleep
     while True:
-        main_menu = ['Recadastrar senha mestra', 'Listar senhas', 'Sair do programa']
+        main_menu = ['Cadastrar senha mestra', 'Listar senhas', 'Sair do programa']
         for k, v in enumerate(main_menu):
             print(f'{k+1} - {v}')
         response_menu()
         if resp == 1:
-            pass_master()
+            insert_into()
         elif resp == 2:
             list_passwords()
         elif resp == 3:
