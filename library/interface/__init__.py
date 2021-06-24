@@ -3,7 +3,7 @@ import pymysql.cursors
 pass_master_key = 'suco'
 
 def connect_server():
-    global cursor
+    global cursor, con
     try:
         con = pymysql.Connect(host='localhost', user='root', password='', database='pass')
         cursor = con.cursor()
@@ -13,13 +13,21 @@ def connect_server():
         );
         ''')
     except:
-        print('Erro - 404 server not found!')
+        print('ERROR - 404 server not found!')
 
 def insert_into():
-    user = str(input('nome de usuário: '))
-    pass_key = str(input('Cadastre sua senha mestra: '))
-    query = '''INSERT INTO words (username, pass_word) VALUES (%s, %s)'''
-    cursor.execute(query, (user, pass_key))
+    try:
+        user = str(input('nome de usuário: '))
+        pass_key = str(input('Cadastre sua senha mestra: '))
+        date = '\'' + user + '\'' + ',' + '\'' + pass_key + '\'' + ');' 
+        query = """INSERT INTO words (username, pass_word) VALUES ("""
+        sql = query + date
+        cursor.execute(sql)
+        con.commit()
+        print('Registros inseridos!')
+        cursor.close()
+    except:
+        print('ERROR! Dados não foram inseridos.')
 
 def pass_master():
     global pass_word
