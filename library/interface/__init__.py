@@ -18,8 +18,8 @@ def connect_server():
 def insert_into():
     user = str(input('nome de usuário: '))
     pass_key = str(input('Cadastre sua senha mestra: '))
-    sql = "INSERT INTO `words` (`username`, `pass_word`) VALUES (%s, %s)"
-    cursor.execute(sql, ('gabriel', 'sodan'))
+    query = '''INSERT INTO words (username, pass_word) VALUES (%s, %s)'''
+    cursor.execute(query, (user, pass_key))
 
 def pass_master():
     global pass_word
