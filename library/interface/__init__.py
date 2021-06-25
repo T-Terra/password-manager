@@ -7,13 +7,16 @@ def connect_server():
     try:
         con = pymysql.Connect(host='localhost', user='root', password='', database='pass')
         cursor = con.cursor()
+        print('Conexão efetuada com sucesso!')
         cursor.execute('''CREATE TABLE IF NOT EXISTS words (
         username TEXT NOT NULL,
         pass_word TEXT NOT NULL
         );
         ''')
-    except:
+    except (ConnectionError):
         print('ERROR - 404 server not found!')
+
+
 
 def insert_into():
     try:
@@ -28,6 +31,16 @@ def insert_into():
         cursor.close()
     except:
         print('ERROR! Dados não foram inseridos.')
+
+def select_data():
+    try:
+        query = """SELECT * FROM words;"""
+        cursor.execute(query)
+        result = cursor.fetchall()
+        print(result)
+    except:
+        print('ERROR! dados não encontrados.')
+        
 
 def pass_master():
     global pass_word
@@ -56,7 +69,7 @@ def menu():
         if resp == 1:
             insert_into()
         elif resp == 2:
-            list_passwords()
+            select_data()
         elif resp == 3:
             print(20 * '=')
             print('Saindo do programa...')
