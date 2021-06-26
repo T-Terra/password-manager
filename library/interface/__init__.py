@@ -1,7 +1,8 @@
 import pymysql.cursors
 
-pass_master_key = 'suco'
+pass_master_key = ''
 
+# Faz a conexão ao banco de dados
 def connect_server():
     global cursor, con
     try:
@@ -16,8 +17,7 @@ def connect_server():
     except (ConnectionError):
         print('ERROR - 404 server not found!')
 
-
-
+# Função para inserir dados no banco de dados
 def insert_into():
     try:
         user = str(input('nome de usuário: '))
@@ -32,16 +32,19 @@ def insert_into():
     except:
         print('ERROR! Dados não foram inseridos.')
 
+# Função que mostra os dados do banco
 def select_data():
     try:
         query = """SELECT * FROM words;"""
         cursor.execute(query)
         result = cursor.fetchall()
-        print(result)
+        for user, p_word in result:
+            print(20 * '=')
+            print(f'Usuário: {user}\nSenha: {p_word}')
     except:
         print('ERROR! dados não encontrados.')
         
-
+# Função que define a senha mestra para acessar o gerenciador
 def pass_master():
     global pass_word
     pass_word = str(input('Senha mestra: '))
@@ -50,19 +53,22 @@ def pass_master():
     else:
         print('Erro! Senha inválida.')
 
-def list_passwords():
+def update_password_master():
     print(20 * '=')
     print(pass_word)
     print(20 * '=')
 
+# Função que recebe a resposta do menu
 def response_menu():
     global resp
     resp = int(input('Sua opção: '))
 
+# Função de gera o menu
 def menu():
     from time import sleep
     while True:
-        main_menu = ['Cadastrar senha mestra', 'Listar senhas', 'Sair do programa']
+        main_menu = ['Inserir novo registro', 'Listar senhas', 'Recadastrar senha mestra', 'Sair do programa']
+        print(20 * '=')
         for k, v in enumerate(main_menu):
             print(f'{k+1} - {v}')
         response_menu()
@@ -71,8 +77,11 @@ def menu():
         elif resp == 2:
             select_data()
         elif resp == 3:
+            update_password_master()
+        elif resp == 4:
             print(20 * '=')
             print('Saindo do programa...')
+            cursor.close()
             sleep(2)
             break
         
