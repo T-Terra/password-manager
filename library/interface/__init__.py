@@ -1,7 +1,5 @@
 import pymysql.cursors
 
-pass_master_key = ''
-
 # Faz a conexão ao banco de dados
 def connect_server():
     global cursor, con
@@ -14,6 +12,10 @@ def connect_server():
         pass_word TEXT NOT NULL
         );
         ''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS M_pass (
+        pass_word_master TEXT NOT NULL
+        );
+        ''')
     except (ConnectionError):
         print('ERROR - 404 server not found!')
 
@@ -21,14 +23,14 @@ def connect_server():
 def insert_into():
     try:
         user = str(input('nome de usuário: '))
-        pass_key = str(input('Cadastre sua senha mestra: '))
+        pass_key = str(input('Cadastre sua senha: '))
         date = '\'' + user + '\'' + ',' + '\'' + pass_key + '\'' + ');' 
         query = """INSERT INTO words (username, pass_word) VALUES ("""
         sql = query + date
         cursor.execute(sql)
         con.commit()
         print('Registros inseridos!')
-        cursor.close()
+        cursor.close()   
     except:
         print('ERROR! Dados não foram inseridos.')
 
@@ -47,16 +49,37 @@ def select_data():
 # Função que define a senha mestra para acessar o gerenciador
 def pass_master():
     global pass_word
+    query = """SELECT * FROM M_pass;"""
+    cursor.execute(query)
+    result_validate = cursor.fetchall()
+    for k, v in enumerate(result_validate):
+        for p, m in enumerate(v):
+            pass_validate = m
     pass_word = str(input('Senha mestra: '))
-    if pass_word == pass_master_key:
+    if pass_word == pass_validate:
         menu()
     else:
         print('Erro! Senha inválida.')
 
+# Registra a senha mestra no banco de dados
+def register_pass_master():
+    global pass_master_key
+    query = """SELECT * FROM M_pass;"""
+    cursor.execute(query)
+    result = cursor.fetchall()
+    if result == ():
+        pass_master_key = str(input('Cadastre sua senha mestra: '))
+        date = '\'' + pass_master_key + '\'' + ');' 
+        query = """INSERT INTO M_pass (pass_word_master) VALUES ("""
+        sql = query + date
+        cursor.execute(sql)
+        con.commit()
+        print('Senha mestra atualizada com sucesso!')
+        cursor.close()
+
+# Atualiza a senha mestra no banco de dados
 def update_password_master():
-    print(20 * '=')
-    print(pass_word)
-    print(20 * '=')
+    print('==')
 
 # Função que recebe a resposta do menu
 def response_menu():
