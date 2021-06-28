@@ -30,7 +30,7 @@ def insert_into():
         cursor.execute(sql)
         con.commit()
         print('Registros inseridos!')
-        cursor.close()   
+        #cursor.close()   
     except:
         print('ERROR! Dados não foram inseridos.')
 
@@ -45,22 +45,6 @@ def select_data():
             print(f'Usuário: {user}\nSenha: {p_word}')
     except:
         print('ERROR! dados não encontrados.')
-        
-# Função que define a senha mestra para acessar o gerenciador
-def pass_master():
-    global pass_word
-    query = """SELECT * FROM M_pass;"""
-    cursor.execute(query)
-    result_validate = cursor.fetchall()
-    for k, v in enumerate(result_validate):
-        for p, m in enumerate(v):
-            pass_validate = m
-    pass_word = str(input('Senha mestra: '))
-    if pass_word == pass_validate:
-        menu()
-    else:
-        print('Erro! Senha inválida.')
-
 # Registra a senha mestra no banco de dados
 def register_pass_master():
     global pass_master_key
@@ -75,16 +59,38 @@ def register_pass_master():
         cursor.execute(sql)
         con.commit()
         print('Senha mestra atualizada com sucesso!')
-        cursor.close()
+        #cursor.close()
 
+# Função que define a senha mestra para acessar o gerenciador
+def pass_master():
+    global pass_word
+    query = """SELECT * FROM M_pass;"""
+    cursor.execute(query)
+    result_validate = cursor.fetchall()
+    for k, v in enumerate(result_validate):
+        for p, m in enumerate(v):
+            pass_validate = m
+    pass_word = str(input('Senha mestra: '))
+    if pass_word == pass_validate:
+        menu()
+    else:
+        print('Erro! Senha inválida.')
 # Atualiza a senha mestra no banco de dados
 def update_password_master():
-    print('==')
+    re_register = str(input('Recadastrar senha: '))
+    print('Senha salva com sucesso!!')
+    query = """UPDATE M_pass set pass_word_master = """
+    data = '\'' + re_register + '\'' + ';'
+    sql = query + data
+    cursor.execute(sql)
+    con.commit()
+    #cursor.close()
 
 # Função que recebe a resposta do menu
 def response_menu():
     global resp
     resp = int(input('Sua opção: '))
+    print(20 * '=')
 
 # Função de gera o menu
 def menu():
@@ -102,9 +108,7 @@ def menu():
         elif resp == 3:
             update_password_master()
         elif resp == 4:
-            print(20 * '=')
             print('Saindo do programa...')
             cursor.close()
             sleep(2)
             break
-        
