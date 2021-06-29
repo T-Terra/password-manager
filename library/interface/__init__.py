@@ -37,6 +37,7 @@ def insert_into():
 
 # Função que mostra os dados do banco
 def select_data():
+    global id_user
     try:
         query = """SELECT * FROM words;"""
         cursor.execute(query)
@@ -44,6 +45,7 @@ def select_data():
         for id, user, p_word in result:
             print(20 * '=')
             print(f'ID:{id}\nUsuário: {user}\nSenha: {p_word}')
+            id_user = str(id)
     except:
         print('ERROR! dados não encontrados.')
 # Registra a senha mestra no banco de dados
@@ -78,23 +80,29 @@ def pass_master():
         print('Erro! Senha inválida.')
 # Atualiza a senha mestra no banco de dados
 def update_password_master():
-    re_register = str(input('Recadastrar senha: '))
-    print('Senha salva com sucesso!!')
-    query = """UPDATE M_pass set pass_word_master = """
-    data = '\'' + re_register + '\'' + ';'
-    sql = query + data
-    cursor.execute(sql)
-    con.commit()
-    #cursor.close()
+    try:
+        re_register = str(input('Recadastrar senha: '))
+        print('Senha salva com sucesso!!')
+        query = """UPDATE M_pass set pass_word_master = """
+        data = '\'' + re_register + '\'' + ';'
+        sql = query + data
+        cursor.execute(sql)
+        con.commit()
+    except:
+        print('ERROR! Não foi possível cadastrar a senha mestra.')
 
 # Deleta os dados pelo ID do usuário
 def delete_data():
-    delete_users = str(input('Qual registro deseja apagar? ID: '))
-    query = """DELETE FROM words WHERE id="""
-    data = '\'' + delete_users+ '\'' + ';'
-    sql = query + data
-    cursor.execute(sql)
-    con.commit()
+    try:
+        delete_users = str(input('Qual registro deseja apagar? ID: '))
+        query = """DELETE FROM words WHERE id="""
+        data = delete_users + ';'
+        sql = query + data
+        cursor.execute(sql)
+        con.commit()
+        print('Registro apagado com sucesso!')
+    except:
+        print('ERROR! ID inválido ou não existe.')
 
 # Função que recebe a resposta do menu
 def response_menu():
