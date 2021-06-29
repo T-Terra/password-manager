@@ -8,6 +8,7 @@ def connect_server():
         cursor = con.cursor()
         print('Conexão efetuada com sucesso!')
         cursor.execute('''CREATE TABLE IF NOT EXISTS words (
+        id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         username TEXT NOT NULL,
         pass_word TEXT NOT NULL
         );
@@ -40,9 +41,9 @@ def select_data():
         query = """SELECT * FROM words;"""
         cursor.execute(query)
         result = cursor.fetchall()
-        for user, p_word in result:
+        for id, user, p_word in result:
             print(20 * '=')
-            print(f'Usuário: {user}\nSenha: {p_word}')
+            print(f'ID:{id}\nUsuário: {user}\nSenha: {p_word}')
     except:
         print('ERROR! dados não encontrados.')
 # Registra a senha mestra no banco de dados
@@ -86,6 +87,15 @@ def update_password_master():
     con.commit()
     #cursor.close()
 
+# Deleta os dados pelo ID do usuário
+def delete_data():
+    delete_users = str(input('Qual registro deseja apagar? ID: '))
+    query = """DELETE FROM words WHERE id="""
+    data = '\'' + delete_users+ '\'' + ';'
+    sql = query + data
+    cursor.execute(sql)
+    con.commit()
+
 # Função que recebe a resposta do menu
 def response_menu():
     global resp
@@ -96,7 +106,7 @@ def response_menu():
 def menu():
     from time import sleep
     while True:
-        main_menu = ['Inserir novo registro', 'Listar senhas', 'Recadastrar senha mestra', 'Sair do programa']
+        main_menu = ['Inserir novo registro', 'Listar senhas', 'Recadastrar senha mestra', 'Deletar dados', 'Sair do programa']
         print(20 * '=')
         for k, v in enumerate(main_menu):
             print(f'{k+1} - {v}')
@@ -108,6 +118,8 @@ def menu():
         elif resp == 3:
             update_password_master()
         elif resp == 4:
+            delete_data()
+        elif resp == 5:
             print('Saindo do programa...')
             cursor.close()
             sleep(2)
