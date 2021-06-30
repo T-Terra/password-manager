@@ -6,7 +6,6 @@ def connect_server():
     try:
         con = pymysql.Connect(host='localhost', user='root', password='', database='pass')
         cursor = con.cursor()
-        #print('Conexão efetuada com sucesso!')
         cursor.execute('''CREATE TABLE IF NOT EXISTS words (
         id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         username TEXT NOT NULL,
