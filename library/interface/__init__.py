@@ -6,7 +6,7 @@ def connect_server():
     try:
         con = pymysql.Connect(host='localhost', user='root', password='', database='pass')
         cursor = con.cursor()
-        print('Conexão efetuada com sucesso!')
+        #print('Conexão efetuada com sucesso!')
         cursor.execute('''CREATE TABLE IF NOT EXISTS words (
         id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         username TEXT NOT NULL,
@@ -22,6 +22,7 @@ def connect_server():
 
 # Função para inserir dados no banco de dados
 def insert_into():
+    connect_server()
     try:
         user = str(input('nome de usuário: '))
         pass_key = str(input('Cadastre sua senha: '))
@@ -31,13 +32,14 @@ def insert_into():
         cursor.execute(sql)
         con.commit()
         print('Registros inseridos!')
-        #cursor.close()   
     except:
         print('ERROR! Dados não foram inseridos.')
+    cursor.close()   
 
 # Função que mostra os dados do banco
 def select_data():
     global id_user
+    connect_server()
     try:
         query = """SELECT * FROM words;"""
         cursor.execute(query)
@@ -48,9 +50,11 @@ def select_data():
             id_user = str(id)
     except:
         print('ERROR! dados não encontrados.')
+    cursor.close()
 # Registra a senha mestra no banco de dados
 def register_pass_master():
     global pass_master_key
+    connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
     result = cursor.fetchall()
@@ -62,11 +66,12 @@ def register_pass_master():
         cursor.execute(sql)
         con.commit()
         print('Senha mestra atualizada com sucesso!')
-        #cursor.close()
+    cursor.close()
 
 # Função que define a senha mestra para acessar o gerenciador
 def pass_master():
     global pass_word
+    connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
     result_validate = cursor.fetchall()
@@ -78,8 +83,10 @@ def pass_master():
         menu()
     else:
         print('Erro! Senha inválida.')
+    cursor.close()
 # Atualiza a senha mestra no banco de dados
 def update_password_master():
+    connect_server()
     try:
         re_register = str(input('Recadastrar senha: '))
         print('Senha salva com sucesso!!')
@@ -90,9 +97,11 @@ def update_password_master():
         con.commit()
     except:
         print('ERROR! Não foi possível cadastrar a senha mestra.')
+    cursor.close()
 
 # Deleta os dados pelo ID do usuário
 def delete_data():
+    connect_server()
     try:
         delete_users = str(input('Qual registro deseja apagar? ID: '))
         query = """DELETE FROM words WHERE id="""
@@ -103,6 +112,7 @@ def delete_data():
         print('Registro apagado com sucesso!')
     except:
         print('ERROR! ID inválido ou não existe.')
+    cursor.close()
 
 # Função que recebe a resposta do menu
 def response_menu():
