@@ -1,4 +1,5 @@
 import pymysql.cursors
+import hashlib
 
 # Faz a conexão ao banco de dados
 def connect_server():
@@ -18,6 +19,11 @@ def connect_server():
         ''')
     except (ConnectionError):
         print('ERROR - 404 server not found!')
+
+def cryptography():
+    crypt = hashlib.sha256()
+    crypt.update('hello')
+    print('==')
 
 # Função para inserir dados no banco de dados
 def insert_into():
