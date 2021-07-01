@@ -1,17 +1,13 @@
-from ..library.interface import pass_master, connect_server, register_pass_master
+'''from ..library.interface import pass_master, connect_server, register_pass_master
 
 connect_server()
 register_pass_master()
-pass_master()
+pass_master()'''
 
-'''import hashlib
+from hashlib import sha256
+l = 'c'
 
-
-def cryptography():
-    crypt = hashlib.sha256()
-    crypt.update(b'hello jhakghfjgda')
-    print(crypt.hexdigest())
-    print(crypt.digest_size)
-
-
-cryptography()'''
+crypt = sha256()
+crypt.update(b'{l}')
+c = crypt.hexdigest()
+print(c)

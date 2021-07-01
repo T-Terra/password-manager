@@ -1,5 +1,5 @@
 import pymysql.cursors
-import hashlib
+from hashlib import sha256
 
 # Faz a conexão ao banco de dados
 def connect_server():
@@ -20,10 +20,11 @@ def connect_server():
     except (ConnectionError):
         print('ERROR - 404 server not found!')
 
-def cryptography():
+# Criptografa a senha mestra
+'''def cryptography(pass_cryp=0):
     crypt = hashlib.sha256()
-    crypt.update('hello')
-    print('==')
+    crypt.update(b'\'' + pass_cryp + '\'')
+    crypt.hexdigest()'''
 
 # Função para inserir dados no banco de dados
 def insert_into():
@@ -56,6 +57,7 @@ def select_data():
     except:
         print('ERROR! dados não encontrados.')
     cursor.close()
+
 # Registra a senha mestra no banco de dados
 def register_pass_master():
     global pass_master_key
@@ -65,7 +67,10 @@ def register_pass_master():
     result = cursor.fetchall()
     if result == ():
         pass_master_key = str(input('Cadastre sua senha mestra: '))
-        date = '\'' + pass_master_key + '\'' + ');' 
+        crypt = sha256()
+        crypt.update(pass_master_key)
+        pass_crypto = crypt.hexdigest()
+        date = '\'' + pass_crypto + '\'' + ');' 
         query = """INSERT INTO M_pass (pass_word_master) VALUES ("""
         sql = query + date
         cursor.execute(sql)
@@ -75,7 +80,6 @@ def register_pass_master():
 
 # Função que define a senha mestra para acessar o gerenciador
 def pass_master():
-    global pass_word
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
@@ -84,7 +88,10 @@ def pass_master():
         for p, m in enumerate(v):
             pass_validate = m
     pass_word = str(input('Senha mestra: '))
-    if pass_word == pass_validate:
+    crypt = sha256()
+    crypt.update(pass_word)
+    pass_crypto = crypt.hexdigest()
+    if pass_crypto == pass_validate:
         menu()
     else:
         print('Erro! Senha inválida.')
