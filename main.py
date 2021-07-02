@@ -1,6 +1,6 @@
-from library.interface import pass_master, connect_server, register_pass_master
+from lib.interface import pass_validation, connect_server, register_pass_master
 
 # Main program
 connect_server()
 register_pass_master()
-pass_master()
+pass_validation()
