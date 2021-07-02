@@ -5,9 +5,12 @@ register_pass_master()
 pass_master()'''
 
 from hashlib import sha256
-l = 'c'
 
-crypt = sha256()
-crypt.update(b'{l}')
-c = crypt.hexdigest()
-print(c)
+
+def cryptography(pass_cryp=''):
+    crypt = sha256()
+    crypt.update(b'{}'.format(pass_cryp))
+    c = crypt.hexdigest()
+    return print(c)
+
+cryptography(input('senha: '))

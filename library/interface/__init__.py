@@ -21,10 +21,10 @@ def connect_server():
         print('ERROR - 404 server not found!')
 
 # Criptografa a senha mestra
-'''def cryptography(pass_cryp=0):
-    crypt = hashlib.sha256()
+"""def cryptography(pass_cryp=0):
+    crypt = sha256()
     crypt.update(b'\'' + pass_cryp + '\'')
-    crypt.hexdigest()'''
+    crypt.hexdigest()"""
 
 # Função para inserir dados no banco de dados
 def insert_into():
@@ -32,10 +32,8 @@ def insert_into():
     try:
         user = str(input('nome de usuário: '))
         pass_key = str(input('Cadastre sua senha: '))
-        date = '\'' + user + '\'' + ',' + '\'' + pass_key + '\'' + ');' 
-        query = """INSERT INTO words (username, pass_word) VALUES ("""
-        sql = query + date
-        cursor.execute(sql)
+        query = "INSERT INTO words (username, pass_word) VALUES ('"+user+"','"+pass_key+"'"");"
+        cursor.execute(query)
         con.commit()
         print('Registros inseridos!')
     except:
@@ -67,13 +65,8 @@ def register_pass_master():
     result = cursor.fetchall()
     if result == ():
         pass_master_key = str(input('Cadastre sua senha mestra: '))
-        crypt = sha256()
-        crypt.update(pass_master_key)
-        pass_crypto = crypt.hexdigest()
-        date = '\'' + pass_crypto + '\'' + ');' 
-        query = """INSERT INTO M_pass (pass_word_master) VALUES ("""
-        sql = query + date
-        cursor.execute(sql)
+        query = "INSERT INTO M_pass (pass_word_master) VALUES ('"+pass_master_key+"'"");"
+        cursor.execute(query)
         con.commit()
         print('Senha mestra atualizada com sucesso!')
     cursor.close()
@@ -88,10 +81,7 @@ def pass_master():
         for p, m in enumerate(v):
             pass_validate = m
     pass_word = str(input('Senha mestra: '))
-    crypt = sha256()
-    crypt.update(pass_word)
-    pass_crypto = crypt.hexdigest()
-    if pass_crypto == pass_validate:
+    if pass_word == pass_validate:
         menu()
     else:
         print('Erro! Senha inválida.')
@@ -102,10 +92,8 @@ def update_password_master():
     try:
         re_register = str(input('Recadastrar senha: '))
         print('Senha salva com sucesso!!')
-        query = """UPDATE M_pass set pass_word_master = """
-        data = '\'' + re_register + '\'' + ';'
-        sql = query + data
-        cursor.execute(sql)
+        query = "UPDATE M_pass set pass_word_master = '"+re_register+"'"";"
+        cursor.execute(query)
         con.commit()
     except:
         print('ERROR! Não foi possível cadastrar a senha mestra.')
@@ -116,10 +104,8 @@ def delete_data():
     connect_server()
     try:
         delete_users = str(input('Qual registro deseja apagar? ID: '))
-        query = """DELETE FROM words WHERE id="""
-        data = delete_users + ';'
-        sql = query + data
-        cursor.execute(sql)
+        query = "DELETE FROM words WHERE id='"+delete_users+"'"";"
+        cursor.execute(query)
         con.commit()
         print('Registro apagado com sucesso!')
     except:
