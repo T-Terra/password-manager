@@ -33,6 +33,8 @@ def insert_into():
     try:
         user = str(input('nome de usuário: '))
         pass_key = str(input('Cadastre sua senha: '))
+        file_log(user)
+        file_log(pass_key)
         hash_user = cryptography(user)
         hash_pass = cryptography(pass_key)
         query = "INSERT INTO service_storage (service, pass_word) VALUES ('"+hash_user+"','"+hash_pass+"'"");"
@@ -41,7 +43,7 @@ def insert_into():
         print('Registros inseridos!')
     except:
         print('ERROR! Dados não foram inseridos.')
-    cursor.close()   
+    cursor.close() 
 
 # Função que mostra os dados do banco
 def select_data():
@@ -121,6 +123,10 @@ def response_menu():
     global resp
     resp = int(input('Sua opção: '))
     print(20 * '=')
+
+def file_log(arg=''):
+    with open('triggers.log', 'a') as log:
+        log.write(f'Inserindo no bando de dados {arg}\n')
 
 # Função de gera o menu
 def menu():
