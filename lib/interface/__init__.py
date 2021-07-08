@@ -1,5 +1,6 @@
 import pymysql.cursors
 from hashlib import sha256
+from tkinter import *
 
 # Faz a conexão ao banco de dados
 def connect_server():
@@ -76,7 +77,7 @@ def register_pass_master():
     cursor.close()
 
 # Função que define a senha mestra para acessar o gerenciador
-def pass_validation():
+def pass_validation(screen_p=''):
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
@@ -84,8 +85,8 @@ def pass_validation():
     for k, v in enumerate(result_validate):
         for p, m in enumerate(v):
             pass_validate = m
-    pass_word = str(input('Senha mestra: '))
-    hash_pass = cryptography(pass_word)
+    #pass_word = str(input('Senha mestra: '))
+    hash_pass = cryptography(screen_p)
     if hash_pass == pass_validate:
         menu()
     else:
@@ -127,6 +128,26 @@ def response_menu():
 def file_log(arg=''):
     with open('triggers.log', 'a') as log:
         log.write(f'Inserindo no bando de dados {arg}\n')
+
+def send_response():
+    pass_validation(str(value))
+
+# Interface gráfica
+def screen():
+    global value
+    window = Tk()
+    window.title('Gerenciador de Senhas')
+    window.geometry('400x250')
+    input_user = Entry(window)
+    input_user.pack()
+    txt = Label(window, text='Senha mestra: ')
+    value = input_user.get()
+    txt.grid(column=0, row=0, padx=60, pady=10, )
+    input_user.grid(column=1, row=0)
+    button = Button(window, text='Enviar', command=send_response)
+    button.grid(column=1, row=2, padx=0, pady=10)
+    print(value)
+    window.mainloop()
 
 # Função de gera o menu
 def menu():
