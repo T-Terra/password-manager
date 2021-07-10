@@ -1,6 +1,5 @@
 import pymysql.cursors
 from hashlib import sha256
-from tkinter import *
 
 # Faz a conexão ao banco de dados
 def connect_server():
@@ -124,30 +123,11 @@ def response_menu():
     global resp
     resp = int(input('Sua opção: '))
     print(20 * '=')
-
+    
+# Função que escreve no log se for inserido um novo registro
 def file_log(arg=''):
     with open('triggers.log', 'a') as log:
         log.write(f'Inserindo no bando de dados {arg}\n')
-
-def send_response():
-    pass_validation(str(value))
-
-# Interface gráfica
-def screen():
-    global value
-    window = Tk()
-    window.title('Gerenciador de Senhas')
-    window.geometry('400x250')
-    input_user = Entry(window)
-    input_user.pack()
-    txt = Label(window, text='Senha mestra: ')
-    value = input_user.get()
-    txt.grid(column=0, row=0, padx=60, pady=10, )
-    input_user.grid(column=1, row=0)
-    button = Button(window, text='Enviar', command=send_response)
-    button.grid(column=1, row=2, padx=0, pady=10)
-    print(value)
-    window.mainloop()
 
 # Função de gera o menu
 def menu():

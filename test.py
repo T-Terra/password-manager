@@ -1,4 +1,4 @@
-from main import screen
+from lib.screen import screen
 
 
 screen()
