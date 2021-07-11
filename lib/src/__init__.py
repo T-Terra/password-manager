@@ -83,8 +83,8 @@ def pass_validation():
     for k, v in enumerate(result_validate):
         for p, m in enumerate(v):
             pass_validate = m
-    #pass_word = str(input('Senha mestra: '))
-    hash_pass = cryptography()
+    pass_word = str(input('Senha mestra: '))
+    hash_pass = cryptography(pass_word)
     if hash_pass == pass_validate:
         menu()
     else:
