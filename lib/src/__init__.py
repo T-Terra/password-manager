@@ -19,7 +19,6 @@ def connect_server():
         ''')
     except (ConnectionError):
         print('ERROR - 404 server not found!')
-
 # Criptografa a senha mestra
 def cryptography(pass_cryp=0):
     crypt = sha256()
@@ -76,7 +75,7 @@ def register_pass_master():
     cursor.close()
 
 # Função que define a senha mestra para acessar o gerenciador
-def pass_validation(screen_p=''):
+def pass_validation():
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
@@ -85,7 +84,7 @@ def pass_validation(screen_p=''):
         for p, m in enumerate(v):
             pass_validate = m
     #pass_word = str(input('Senha mestra: '))
-    hash_pass = cryptography(screen_p)
+    hash_pass = cryptography()
     if hash_pass == pass_validate:
         menu()
     else:

@@ -1,8 +1,8 @@
 from tkinter import *
 
 # Função que acha a localização da tela
-def cli_esq_mouse(re):
-    print(f'X: {re.x} | Y: {re.y} | Geo: {window.geometry()}')
+'''def cli_esq_mouse(re):
+    print(f'X: {re.x} | Y: {re.y} | Geo: {window.geometry()}')'''
 
 # Tela principal
 def screen():
@@ -13,7 +13,7 @@ def screen():
     window.geometry('400x250+623+341')
     window.wm_resizable(width=False, height=False) # para não almentar a tela com o mouse 
     # mapeando o cursor do mouse e o tamanho da janela
-    window.bind('<Button-1>', cli_esq_mouse)
+    #window.bind('<Button-1>', cli_esq_mouse)
     input_user = Entry(window, font='Arial 12')
     input_user.grid(column=1, row=0)
     #input_user.insert(END, 0)
@@ -21,7 +21,6 @@ def screen():
     txt.grid(column=0, row=0, padx=50, pady=10, )
     button = Button(window, text='Enviar', command=get_text)
     button.grid(column=1, row=2, padx=0, pady=10)
-    #return None
     window.mainloop()
 
 # Pega a informação da caixa de input
