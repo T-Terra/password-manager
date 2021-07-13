@@ -1,9 +1,5 @@
 import pymysql.cursors
 from hashlib import sha256
-from lib.screen import screen
-
-# Chama a função da interface gráfica
-screen()
 
 # Faz a conexão ao banco de dados
 def connect_server():
@@ -79,7 +75,7 @@ def register_pass_master():
     cursor.close()
 
 # Função que define a senha mestra para acessar o gerenciador
-def pass_validation():
+def pass_validation(response_b='', error=''):
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
@@ -87,12 +83,12 @@ def pass_validation():
     for k, v in enumerate(result_validate):
         for p, m in enumerate(v):
             pass_validate = m
-    pass_word = str(input('Senha mestra: '))
-    hash_pass = cryptography(pass_word)
+    #pass_word = str(input('Senha mestra: '))
+    hash_pass = cryptography(response_b)
     if hash_pass == pass_validate:
         menu()
     else:
-        print('Erro! Senha inválida.')
+        error
     cursor.close()
 # Atualiza a senha mestra no banco de dados
 def update_password_master():

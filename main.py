@@ -1,5 +1,4 @@
-from lib.src import connect_server, register_pass_master
+from lib.screen import screen_login
 
 # Main program
-connect_server()
-register_pass_master()
+screen_login()

@@ -1,4 +1,5 @@
-from lib.screen import screen
+from lib.screen import screen_login, screen_menu
 
 
-screen()
+screen_login()
+screen_menu()
