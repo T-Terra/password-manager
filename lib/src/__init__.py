@@ -1,5 +1,9 @@
 import pymysql.cursors
 from hashlib import sha256
+from lib.screen import screen
+
+# Chama a função da interface gráfica
+screen()
 
 # Faz a conexão ao banco de dados
 def connect_server():
