@@ -7,7 +7,7 @@ from lib.src import pass_validation
 
 # Tela principal
 def screen_login():
-    global window, input_user, error, correct
+    global window, input_user, error
     window = Tk()
     window.title('Gerenciador de Senhas')
     window.iconphoto(False, PhotoImage(file='./img/seguranca.ico'))
@@ -23,8 +23,6 @@ def screen_login():
     button.grid(column=1, row=2, padx=0, pady=10)
     error = Label(window, text='')
     error.grid(column=1, row=3)
-    correct = Label(window, text='')
-    correct.grid(column=1, row=3)
     window.mainloop()
 
 def screen_menu():
@@ -37,11 +35,13 @@ def screen_menu():
 # Pega a informação da caixa de input
 def send_response():
     texts = str(input_user.get())
-    correct['text'] = 'Senha correta!'
     pass_validation(texts)
 
-'''def ok(val=True):
-    if val == True:
-        correct['text'] = 'Senha correta!'
-    else:
-        error['text'] = 'Erro! Senha inválida.'''
+def send_label(arg=''):
+    if arg == 0:
+        error['text'] = 'Senha correta!'
+    elif arg == 1:
+        error['text'] = 'Senha 404 invalida!'
+
+
+app = screen_login()

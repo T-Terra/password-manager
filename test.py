@@ -1,5 +1,7 @@
-from lib.screen import screen_login, screen_menu
+def fun(arg=''):
+    b = 1
+    soma = b + arg
+    return soma
 
-
-screen_login()
-screen_menu()
+p = fun(1)
+print(p)

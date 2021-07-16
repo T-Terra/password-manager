@@ -1,4 +1,4 @@
-from lib.screen import screen_login
+from lib.screen import app
 
 # Main program
-screen_login()
+app

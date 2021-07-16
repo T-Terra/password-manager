@@ -1,4 +1,3 @@
-from tkinter.constants import TRUE
 import pymysql.cursors
 from hashlib import sha256
 
@@ -74,9 +73,8 @@ def register_pass_master():
         con.commit()
         print('Senha mestra atualizada com sucesso!')
     cursor.close()
-
 # Função que define a senha mestra para acessar o gerenciador
-def pass_validation(response_b='', arg=''):
+def pass_validation(response_b=''):
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
@@ -92,6 +90,8 @@ def pass_validation(response_b='', arg=''):
     else:
         print('Erro! Senha inválida')
     cursor.close()
+    
+
 # Atualiza a senha mestra no banco de dados
 def update_password_master():
     connect_server()
