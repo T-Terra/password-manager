@@ -37,11 +37,8 @@ def send_response():
     texts = str(input_user.get())
     pass_validation(texts)
 
-def send_label(arg=''):
+def send_label(arg=0):
     if arg == 0:
         error['text'] = 'Senha correta!'
     elif arg == 1:
         error['text'] = 'Senha 404 invalida!'
-
-
-app = screen_login()
