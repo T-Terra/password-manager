@@ -75,7 +75,7 @@ def register_pass_master():
     cursor.close()
 # Função que define a senha mestra para acessar o gerenciador
 def pass_validation(response_b=''):
-    global pass_validate
+    global pass_validate, ok
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
@@ -86,12 +86,14 @@ def pass_validation(response_b=''):
     #pass_word = str(input('Senha mestra: '))
     hash_pass = cryptography(response_b)
     if hash_pass == pass_validate:
+        ok = 1
         print('Senha correta!')
-        menu()
+        #menu()
     else:
+        ok = 0
         print('Erro! Senha inválida')
     cursor.close()
-    
+    return ok
 
 # Atualiza a senha mestra no banco de dados
 def update_password_master():

@@ -11,16 +11,16 @@ def screen_login():
     window = Tk()
     window.title('Gerenciador de Senhas')
     window.iconphoto(False, PhotoImage(file='./img/seguranca.ico'))
-    window.geometry('400x250+623+341')
+    window.geometry('400x125+623+341')
     window.wm_resizable(width=False, height=False) # para não almentar a tela com o mouse 
     # mapeando o cursor do mouse e o tamanho da janela
     #window.bind('<Button-1>', cli_esq_mouse)
-    input_user = Entry(window, font='Arial 12')
+    input_user = Entry(window, font='Arial 13')
     input_user.grid(column=1, row=0)
-    txt = Label(window, text='Senha mestra: ')
-    txt.grid(column=0, row=0, padx=50, pady=10, )
-    button = Button(window, text='Enviar', command=send_response)
-    button.grid(column=1, row=2, padx=0, pady=10)
+    txt = Label(window, text='Senha mestra: ', font='Arial 14')
+    txt.grid(column=0, row=0, padx=25, pady=10, )
+    button = Button(window, text='Enviar', font='Arial 15', command=send_response)
+    button.grid(column=1, row=2, padx=0, pady=5)
     error = Label(window, text='')
     error.grid(column=1, row=3)
     window.mainloop()
@@ -35,10 +35,11 @@ def screen_menu():
 # Pega a informação da caixa de input
 def send_response():
     texts = str(input_user.get())
-    pass_validation(texts)
+    send_label(pass_validation(texts))
 
+# Manda a condição para o back-end
 def send_label(arg=0):
-    if arg == 0:
+    if arg == 1:
         error['text'] = 'Senha correta!'
-    elif arg == 1:
-        error['text'] = 'Senha 404 invalida!'
+    elif arg == 0:
+        error['text'] = 'Senha inválida!'
