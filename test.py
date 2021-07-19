@@ -1,7 +1,3 @@
-def fun(arg=''):
-    b = 1
-    soma = b + arg
-    return soma
+from lib.screen import screen_menu
 
-p = fun(1)
-print(p)
+screen_menu()
