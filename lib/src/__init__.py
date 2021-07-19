@@ -122,9 +122,10 @@ def delete_data():
     cursor.close()
 
 # Função que recebe a resposta do menu
-def response_menu():
+def response_menu(arg=0):
     global resp
-    resp = int(input('Sua opção: '))
+    #resp = int(input('Sua opção: '))
+    resp = arg
     print(20 * '=')
     
 # Função que escreve no log se for inserido um novo registro
