@@ -1,5 +1,5 @@
 from tkinter import *
-from lib.src import pass_validation, response_menu
+from lib.src import pass_validation, insert_into, select_data, update_password_master, delete_data
 
 # Função que acha a localização da tela
 '''def cli_esq_mouse(re):
@@ -27,7 +27,7 @@ def screen_login():
 
 # Janela do menu
 def screen_menu():
-    global option_user
+    global option_user, window2
     window2 = Tk()
     window2.title('Gerenciador de Senhas')
     window2.iconphoto(False, PhotoImage(file='./img/seguranca.ico'))
@@ -39,7 +39,8 @@ def screen_menu():
     Label(window2, text='4 - Deletar dados', font='Arial 18', bg='purple4', fg='white').place(x=125, y=180)
     Label(window2, text='5 - Sair do programa', font='Arial 18', bg='purple', fg='white').place(x=125, y=230)
     Label(window2, text='Sua opção:', font='Arial 18', bg='purple3', fg='white').place(x=40, y=290)
-    option_user = Entry(window2, font='Arial 18').place(x=170, y=290, width=25, height=33)
+    option_user = Entry(window2, font='Arial 18')
+    option_user.place(x=170, y=290, width=25, height=33)
     Button(window2, text='Enviar', font='Arial 15', bg='green', fg='white', command=send_menu).place(x=205, y=290, height=33)
     window2.mainloop()
 
@@ -50,8 +51,7 @@ def send_response():
 
 def send_menu():
     op = int(option_user.get())
-    response_menu(op)
-    print(op)
+    menu(op)
 
 # Manda a condição para o back-end
 def send_label(arg=0):
@@ -60,3 +60,25 @@ def send_label(arg=0):
         screen_menu()
     elif arg == 0:
         error['text'] = 'Senha inválida!'
+
+# Função de gera o menu
+def menu(resp=0):
+    from time import sleep
+    while True:
+        """main_menu = ['Inserir novo registro', 'Listar senhas', 'Recadastrar senha mestra', 'Deletar dados', 'Sair do programa']
+        print(20 * '=')
+        for k, v in enumerate(main_menu):
+            print(f'{k+1} - {v}')"""
+        if resp == 1:
+            insert_into()
+        elif resp == 2:
+            select_data()
+        elif resp == 3:
+            update_password_master()
+        elif resp == 4:
+            delete_data()
+        elif resp == 5:
+            print('Saindo do programa...')
+            window2.destroy()
+            sleep(1.5)
+            break

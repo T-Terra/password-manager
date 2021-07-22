@@ -73,6 +73,7 @@ def register_pass_master():
         con.commit()
         print('Senha mestra atualizada com sucesso!')
     cursor.close()
+print('Senha mestra: ')
 # Função que define a senha mestra para acessar o gerenciador
 def pass_validation(response_b=''):
     global pass_validate, ok
@@ -88,7 +89,6 @@ def pass_validation(response_b=''):
     if hash_pass == pass_validate:
         ok = 1
         print('Senha correta!')
-        #menu()
     else:
         ok = 0
         print('Erro! Senha inválida')
@@ -121,37 +121,7 @@ def delete_data():
         print('ERROR! ID inválido ou não existe.')
     cursor.close()
 
-# Função que recebe a resposta do menu
-def response_menu(arg=0):
-    global resp
-    #resp = int(input('Sua opção: '))
-    resp = arg
-    print(20 * '=')
-    
 # Função que escreve no log se for inserido um novo registro
 def file_log(arg=''):
     with open('triggers.log', 'a') as log:
         log.write(f'Inserindo no bando de dados {arg}\n')
-
-# Função de gera o menu
-def menu():
-    from time import sleep
-    while True:
-        main_menu = ['Inserir novo registro', 'Listar senhas', 'Recadastrar senha mestra', 'Deletar dados', 'Sair do programa']
-        print(20 * '=')
-        for k, v in enumerate(main_menu):
-            print(f'{k+1} - {v}')
-        response_menu()
-        if resp == 1:
-            insert_into()
-        elif resp == 2:
-            select_data()
-        elif resp == 3:
-            update_password_master()
-        elif resp == 4:
-            delete_data()
-        elif resp == 5:
-            print('Saindo do programa...')
-            cursor.close()
-            sleep(1.5)
-            break
