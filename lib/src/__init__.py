@@ -30,7 +30,7 @@ def cryptography(pass_cryp=''):
 def insert_into():
     connect_server()
     try:
-        user = str(input('nome de usuário: '))
+        user = str(input('Serviço/Conta: '))
         pass_key = str(input('Cadastre sua senha: '))
         file_log(user)
         file_log(pass_key)

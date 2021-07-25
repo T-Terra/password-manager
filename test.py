@@ -1,3 +1,3 @@
-from lib.screen import screen_menu
+from lib.screen import screen_insert
 
-screen_menu()
+screen_insert()
