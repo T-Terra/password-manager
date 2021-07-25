@@ -27,15 +27,15 @@ def cryptography(pass_cryp=''):
     return hash
 
 # Função para inserir dados no banco de dados
-def insert_into():
+def insert_into(service='', pass_acc=''):
     connect_server()
     try:
-        user = str(input('Serviço/Conta: '))
-        pass_key = str(input('Cadastre sua senha: '))
-        file_log(user)
-        file_log(pass_key)
-        hash_user = cryptography(user)
-        hash_pass = cryptography(pass_key)
+        '''user = str(input('Serviço/Conta: '))
+        pass_key = str(input('Cadastre sua senha: '))'''
+        file_log(service)
+        file_log(pass_acc)
+        hash_user = cryptography(service)
+        hash_pass = cryptography(pass_acc)
         query = "INSERT INTO service_storage (service, pass_word) VALUES ('"+hash_user+"','"+hash_pass+"'"");"
         cursor.execute(query)
         con.commit()

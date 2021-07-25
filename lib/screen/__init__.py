@@ -1,5 +1,5 @@
 from tkinter import *
-from lib.src import pass_validation, select_data, update_password_master, delete_data
+from lib.src import pass_validation, select_data, update_password_master, delete_data, insert_into
 
 # Função que acha a localização da tela
 '''def cli_esq_mouse(re):
@@ -49,19 +49,22 @@ def screen_menu():
 
 # Tela da função insert in to
 def screen_insert():
+    global services, pass_account
     window3 = Tk()
     window3.title('Gerenciador de Senhas')
     window3.iconphoto(False, PhotoImage(file='./img/seguranca.ico'))
     window3.geometry('550x200+380+150')
     window3.wm_resizable(width=False, height=False)
     Label(window3, text='Serviço/conta: ', font='Arial 18').place(x=50, y=30)
-    resp_user = Entry(window3, font='Arial 18')
-    resp_user.place(x=210, y=30, width=200)
+    services = Entry(window3, font='Arial 18')
+    services.place(x=210, y=30, width=200)
     Label(window3, text='Senha: ', font='Arial 18').place(x=125, y=80)
-    pass_acount = Entry(window3, font='Arial 18')
-    pass_acount.place(x=210, y=80, width=200)
-    Button(window3, text='Enviar', font='Arial 15', bg='green', fg='white').place(x=270, y=130, height=33)
+    pass_account = Entry(window3, font='Arial 18')
+    pass_account.place(x=210, y=80, width=200)
+    Button(window3, text='Voltar ao Menu', font='Arial 15', bg='red', fg='white', command=returnn).place(x=2, y=165, height=33)
+    Button(window3, text='Enviar', font='Arial 15', bg='green', fg='white', command=send_insert_data).place(x=275, y=130, height=33)
     window3.mainloop()
+
 # Pega a informação da caixa de input
 def send_response():
     texts = str(input_user.get())
@@ -78,6 +81,17 @@ def send_label(arg=0):
         screen_menu()
     elif arg == 0:
         error['text'] = 'Senha inválida!'
+
+# pega o nome do serviço e a senha para cadastrar no banco de dados
+def send_insert_data():
+    serv = services.get()
+    pass_op = pass_account.get()
+    insert_into(serv, pass_op)
+
+# Retorna para o menu
+def returnn():
+    window2.update()
+    return
 
 # Função de gera o menu
 def menu(resp=0):
