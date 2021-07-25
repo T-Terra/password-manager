@@ -47,6 +47,7 @@ def screen_menu():
     Button(window2, text='Enviar', font='Arial 15', bg='green', fg='white', command=send_menu).place(x=205, y=290, height=33)
     window2.mainloop()
 
+# Tela da função insert in to
 def screen_insert():
     window3 = Tk()
     window3.title('Gerenciador de Senhas')
@@ -57,9 +58,8 @@ def screen_insert():
     resp_user = Entry(window3, font='Arial 18')
     resp_user.place(x=210, y=30, width=200)
     Label(window3, text='Senha: ', font='Arial 18').place(x=125, y=80)
-    pass_acount = Entry(window3, font='Arial 18', show='*')
+    pass_acount = Entry(window3, font='Arial 18')
     pass_acount.place(x=210, y=80, width=200)
-    Button(window3, text='Hide', font='Arial 15', bg='red', fg='white').place(x=410, y=79, height=33)
     Button(window3, text='Enviar', font='Arial 15', bg='green', fg='white').place(x=270, y=130, height=33)
     window3.mainloop()
 # Pega a informação da caixa de input
