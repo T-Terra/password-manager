@@ -42,7 +42,7 @@ def insert_into(service='', pass_acc=''):
         print('Registros inseridos!')
     except:
         print('ERROR! Dados não foram inseridos.')
-    cursor.close() 
+    cursor.close()
 
 # Função que mostra os dados do banco
 def select_data():
