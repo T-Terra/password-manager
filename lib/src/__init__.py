@@ -34,15 +34,15 @@ def insert_into(service='', pass_acc=''):
         pass_key = str(input('Cadastre sua senha: '))'''
         file_log(service)
         file_log(pass_acc)
-        hash_user = cryptography(service)
+        #hash_user = cryptography(service)
         hash_pass = cryptography(pass_acc)
-        query = "INSERT INTO service_storage (service, pass_word) VALUES ('"+hash_user+"','"+hash_pass+"'"");"
+        query = "INSERT INTO service_storage (service, pass_word) VALUES ('"+service+"','"+hash_pass+"'"");"
         cursor.execute(query)
         con.commit()
         print('Registros inseridos!')
     except:
         print('ERROR! Dados não foram inseridos.')
-    cursor.close() 
+    cursor.close()
 
 # Função que mostra os dados do banco
 def select_data():
@@ -76,7 +76,7 @@ def register_pass_master():
 print('Senha mestra: ')
 # Função que define a senha mestra para acessar o gerenciador
 def pass_validation(response_b=''):
-    global pass_validate, ok
+    global pass_validate
     connect_server()
     query = """SELECT * FROM M_pass;"""
     cursor.execute(query)
